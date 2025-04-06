@@ -1,30 +1,23 @@
 package nu.kaffekod;
 
-import java.util.Objects;
+// ASK ABOUT INT AND DOUBLES
 
 public abstract class Product {
-    int id;
-    double price;
-    String productName;
+    private static int sequenser = 0;
+    private int id;
+    private double price;
+    private String productName;
 
 
     public Product(String productName, double price) {
         setProductName(productName);
         setPrice(price);
-        setId(id);
+        this.id = getNextId();
     }
 
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        int newId = Objects.hash(this.productName, this.price);
-        if(newId < 0) {
-            newId = Math.multiplyExact(newId+1, -1);
-        }
-        this.id = newId;
     }
 
     public double getPrice() {
@@ -43,6 +36,9 @@ public abstract class Product {
         this.productName = productName;
     }
 
+    private static int getNextId() {
+        return ++sequenser;
+    }
 
     public abstract String examine();
     public abstract String use();
